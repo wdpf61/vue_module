@@ -1,43 +1,23 @@
 <script setup>
-import { ref } from "vue";
-import Person from './components/Person.vue';
-import CounterApp from './components/CounterApp.vue';
-import Students from './components/Students.vue';
+// import { useRouter } from 'vue-router';
 
+// const router = useRouter();
+// router.push('/about'); // Redirects to About page
+// router.push({ path: '/user/123' }); // Redirects with dynamic ID
 
-
-let headline= ref("IsDB-BISEW");
-
-let toggle = ref(true);
-
-let paragraph_id= ref("asset");
-
-const changId=()=>{
-   paragraph_id.value="paragraph"
-
-}
-
-
+// import { useRoute } from 'vue-router';
+// const route = useRoute();
+// console.log(route.params.id);
 </script>
 
 <template>
-
-  <h1  v-show="toggle">{{ headline }}</h1>
-  <p :id="paragraph_id">Lorem ipsum dolor sit, amet consectetur adipisicing elit. In, provident expedita temporibus magni ratione commodi ut eos. Quam vitae ex modi consectetur reiciendis dicta minus velit, ducimus fuga asperiores labore aliquam neque voluptate, minima mollitia quisquam praesentium consequatur eaque officiis eos veritatis dolorum, doloremque architecto. Atque numquam nostrum incidunt delectus.</p>
-  <br>
-
-   <input v-model="headline" type="text" placeholder="headline">
-
-  <button @click="toggle = !toggle" >Show/Hide</button>
-  <button @click="changId" >change Id</button>
-
-
-  <Person />
-  <CounterApp/>
-
-   <Students/>
-
-
+  <div>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </nav>
+    <router-view></router-view> <!-- This displays the routed component -->
+  </div>
 </template>
 <style scoped>
 
