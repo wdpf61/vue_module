@@ -25,6 +25,7 @@ import { RouterView } from 'vue-router'
     <main>
       <div class="container-fluid">
         <RouterView />
+        <!-- <router-view></router-view> -->
       </div>
     </main>
   </div>
