@@ -4,7 +4,7 @@
   import Header from './layout/Header.vue'
   import Modal from './layout/Modal.vue'
 import Dashboard from './pages/Dashboard.vue'
-import { RouterView } from 'vue-router'
+
 </script>
 
 <template>
@@ -24,8 +24,8 @@ import { RouterView } from 'vue-router'
     <!-- Body main section starts -->
     <main>
       <div class="container-fluid">
-        <RouterView />
-        <!-- <router-view></router-view> -->
+        <!-- <RouterView /> -->
+        <router-view></router-view>
       </div>
     </main>
   </div>

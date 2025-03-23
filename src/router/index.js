@@ -1,20 +1,26 @@
 import Contact from '@/pages/Contact.vue';
 import Dashboard from '@/pages/Dashboard.vue';
 import NotFound from '@/pages/NotFound.vue';
-import { createMemoryHistory, createRouter } from 'vue-router'
+import Index from '@/pages/roles/Index.vue';
+import { createRouter, createWebHistory } from 'vue-router'
 
 
 
 const routes = [
   { path: '/', component: Dashboard },
   { path:'/contact', component: Contact },
-  { path: '/foo', component: Contact },
-  { path: '/:pathMatch(.*)*', component: NotFound },
+
+
+  { path:'/roles', component: Index },
  
+
+
+
+  { path: '/:pathMatch(.*)*', component: NotFound },
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 })
 
