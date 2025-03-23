@@ -1,48 +1,50 @@
 <script setup>
-import { ref } from "vue";
-import Person from './components/Person.vue';
-import CounterApp from './components/CounterApp.vue';
-import Students from './components/Students.vue';
-import Conditions from "./components/Conditions.vue";
-
-
-
-let headline= ref("IsDB-BISEW");
-
-let toggle = ref(true);
-
-let paragraph_id= ref("asset");
-
-const changId=()=>{
-   paragraph_id.value="paragraph"
-
-}
-
-
+  import Footer from './layout/Footer.vue'
+  import Navbar from './layout/Navbar.vue'
+  import Header from './layout/Header.vue'
+  import Modal from './layout/Modal.vue'
+import Dashboard from './pages/Dashboard.vue'
 </script>
 
 <template>
+ <div class="app-wrapper">
+<!-- 
+<div class="loader-wrapper">
+  <div class="loader_16"></div>
+</div> -->
 
-   <Conditions/>
+ <Navbar/>
 
-  <h1  v-show="toggle">{{ headline }}</h1>
-  <p :id="paragraph_id">Lorem ipsum dolor sit, amet consectetur adipisicing elit. In, provident expedita temporibus magni ratione commodi ut eos. Quam vitae ex modi consectetur reiciendis dicta minus velit, ducimus fuga asperiores labore aliquam neque voluptate, minima mollitia quisquam praesentium consequatur eaque officiis eos veritatis dolorum, doloremque architecto. Atque numquam nostrum incidunt delectus.</p>
-  <br>
+<div class="app-content">
+  <div class="">
 
-   <input v-model="headline" type="text" placeholder="headline">
+    <Header/>
+   
+    <!-- Body main section starts -->
+    <main>
+      <div class="container-fluid">
+         <Dashboard/>
+      </div>
+    </main>
+  </div>
+</div>
+<!-- Body main section ends -->
 
-  <button @click="toggle = !toggle" >Show/Hide</button>
-  <button @click="changId" >change Id</button>
 
+<!-- tap on top -->
+<div class="go-top">
+  <span class="progress-value">
+    <i class="ti ti-arrow-up"></i>
+  </span>
+</div>
 
-  <Person />
-  <CounterApp/>
+  <Footer/>
+</div>
 
-   <Students/>
+<!-- modal -->
 
+<Modal/>
 
 </template>
 <style scoped>
-
-
 </style>
