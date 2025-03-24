@@ -22,8 +22,8 @@
           <span class="badge text-bg-success badge-notification ms-2">4</span>
         </a>
         <ul class="collapse" id="dashboard">
-          <li><a href="index.html">Ecommerce</a></li>
-          <li><a href="project_dashboard.html">Project</a></li>
+          <li><RouterLink to="/contact">Contact</RouterLink></li>
+          <li><RouterLink to="/roles">Roles</RouterLink></li>
           <li><a href="crypto_dashboard.html">Crypto</a></li>
           <li><a href="education.html">Education</a></li>
         </ul>
