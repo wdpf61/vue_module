@@ -5,19 +5,35 @@ import { onMounted, reactive, ref } from 'vue';
 const roles = ref([])
 
 onMounted(() => {
+    fetchRoles()
+})
+
+const fetchRoles= ()=>{
     axios.get("http://localhost/Laravel/project/public/api/roles")
         .then(res => {
             console.log(res.data.roles);
             roles.value = res.data.roles
-
         })
         .catch(err => {
             console.log(err);
 
         })
-})
+}
 
-
+const deleterole= (id)=>{
+  axios.delete(`http://localhost/Laravel/project/public/api/roles/${id}`)
+  .then(res=>{
+    console.log(res);
+    if (res.data.roles) {
+        fetchRoles()
+    }
+  })
+  .catch(err =>{
+     console.log(err);
+     
+  })
+   
+}
 
 
 
@@ -45,9 +61,10 @@ onMounted(() => {
     <div class="row">
         <div class="col">
             <div class="card">
+                <div class="card-header">
+                    <h3><RouterLink to="/createRole">Add Roles</RouterLink></h3>
+                </div>
                 <div class="card-body">
-
-
                     <div>
                         <table class="table table-striped">
                             <thead>
@@ -61,7 +78,10 @@ onMounted(() => {
                                 <tr v-for="role in roles">
                                     <th>{{ role.id }}</th>
                                     <th>{{ role.name }}</th>
-                                    <th>Action</th>
+                                    <th>
+                                         <RouterLink class="btn btn-primary" to="/edit/{{ role.id }}">Edit</RouterLink>  
+                                         <a class="btn btn-danger" @click="deleterole(role.id )">Delete</a>  
+                                    </th>
                                 </tr>
                             </tbody>
                         </table>
