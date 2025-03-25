@@ -15,7 +15,7 @@ const routes = [
   { path:'/contact', component: Contact },
 
   { path:'/roles', component: Roles },
-  { path:'/roles/create', component: CreateRole},
+  { path:'/createRole', component: CreateRole},
   { path:'/roles/edit/:id', component: UpdateRole},
   { path:'/users', component: Users },
   { path: '/:pathMatch(.*)*', component: NotFound },

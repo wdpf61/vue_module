@@ -1,4 +1,5 @@
 <script setup>
+import api from '@/Api';
 import axios from 'axios';
 import { onMounted, reactive, ref } from 'vue';
 
@@ -9,7 +10,7 @@ onMounted(() => {
 })
 
 const fetchRoles= ()=>{
-    axios.get("http://localhost/Laravel/project/public/api/roles")
+    api.get("/roles")
         .then(res => {
             console.log(res.data.roles);
             roles.value = res.data.roles
@@ -21,7 +22,7 @@ const fetchRoles= ()=>{
 }
 
 const deleterole= (id)=>{
-  axios.delete(`http://localhost/Laravel/project/public/api/roles/${id}`)
+  api.delete(`/roles/${id}`)
   .then(res=>{
     console.log(res);
     if (res.data.roles) {
@@ -79,7 +80,7 @@ const deleterole= (id)=>{
                                     <th>{{ role.id }}</th>
                                     <th>{{ role.name }}</th>
                                     <th>
-                                         <RouterLink class="btn btn-primary" to="/edit/{{ role.id }}">Edit</RouterLink>  
+                                      <RouterLink :to="`/roles/edit/${role.id}`" class="btn btn-primary">Edit</RouterLink>
                                          <a class="btn btn-danger" @click="deleterole(role.id )">Delete</a>  
                                     </th>
                                 </tr>
