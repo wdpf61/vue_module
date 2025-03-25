@@ -88,7 +88,7 @@
 
                             <form class="app-form app-icon-form " action="#">
                                 <div class="position-relative ">
-                                    <input v-model="search"  @input="fetchUsers" placeholder="Search..." class="form-control"  aria-label="Search">
+                                    <input v-model="search"  name="search" @input="fetchUsers" placeholder="Search..." class="form-control"  aria-label="Search">
                                 
                                     <i class="ti ti-search text-dark"></i>
                                 </div>
@@ -113,16 +113,16 @@
                                     </tr>
                                 </thead>
                                 <tbody class="list" id="t-data">
-                                    <tr>
+                                    <tr v-for="user in users">
                                         <th scope="row"><input class="form-check-input mt-0 ms-2" type="checkbox"
                                                 name="item"></th>
-                                        <td class="id d-none">1</td>
-                                        <td class="employee">Allie Grater</td>
-                                        <td class="email">graterallie@gmail.com</td>
-                                        <td class="contact">8054478398</td>
+                                        <td class="id d-none">{{ user.id }}</td>
+                                        <td class="employee">{{ user.name }}</td>
+                                        <td class="email">{{ user.email }}</td>
+                                        <td class="contact">{{ user.mobile }}</td>
                                         <td class="date">2021-03-19</td>
                                         <td class="status">
-                                            <span class="badge bg-danger-subtle text-danger text-uppercase">Block</span>
+                                            <span class="badge bg-danger-subtle  text-danger text-uppercase">{{ user.inactive === 0 ? "active" : "inactive" }}</span>
                                         </td>
                                         <td class="edit"><button class="btn edit-item-btn btn-sm btn-success"
                                                 data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
@@ -131,69 +131,15 @@
                                                 class="btn remove-item-btn btn-sm btn-danger">Remove</button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row"><input class="form-check-input mt-0 ms-2" type="checkbox"
-                                                name="item" value="2"></th>
-                                        <td class="id d-none">2</td>
-                                        <td class="employee">Rhoda Report</td>
-                                        <td class="email">reportrhoda@gmail.com</td>
-                                        <td class="contact">7765392112</td>
-                                        <td class="date">2020-01-19</td>
-                                        <td class="status"><span
-                                                class="badge bg-success-subtle text-success text-uppercase">Active</span>
-                                        </td>
-                                        <td class="edit"><button class="btn edit-item-btn btn-sm btn-success"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
-                                        </td>
-                                        <td class="remove"><button
-                                                class="btn remove-item-btn btn-sm btn-danger">Remove</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><input class="form-check-input mt-0 ms-2" type="checkbox"
-                                                name="item" value="3"></th>
-                                        <td class="id d-none">3</td>
-                                        <td class="employee">Rose Bush</td>
-                                        <td class="email">rose@gmail.com</td>
-                                        <td class="contact">9674903425</td>
-                                        <td class="date">2020-10-26</td>
-                                        <td class="status"><span
-                                                class="badge bg-success-subtle text-success text-uppercase">Active</span>
-                                        </td>
-                                        <td class="edit"><button class="btn edit-item-btn btn-sm btn-success"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
-                                        </td>
-                                        <td class="remove"><button
-                                                class="btn remove-item-btn btn-sm btn-danger">Remove</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><input class="form-check-input mt-0 ms-2" type="checkbox"
-                                                name="item" value="4"></th>
-                                        <td class="id d-none">4</td>
-                                        <td class="employee">Dave Allippa</td>
-                                        <td class="email">dave@gmail.com</td>
-                                        <td class="contact">6490537289</td>
-                                        <td class="date">2020-06-19</td>
-                                        <td class="status">
-                                            <span class="badge bg-danger-subtle text-danger text-uppercase">Block</span>
-                                        </td>
-                                        <td class="edit"><button class="btn edit-item-btn btn-sm btn-success"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
-                                        </td>
-                                        <td class="remove"><button
-                                                class="btn remove-item-btn btn-sm btn-danger">Remove</button>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
                         <div class="list-pagination">
-                            <button @click="fetchUsers(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">Prev</button>
-                            <button @click="fetchUsers(pagination.next_page_url)" :disabled="!pagination.next_page_url">Next</button>
+                            <!-- <button @click="fetchUsers(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">Prev</button>
+                            <button @click="fetchUsers(pagination.next_page_url)" :disabled="!pagination.next_page_url">Next</button> -->
                             <ul class="pagination">
-                                <li v-for="page in pagination.links" class="active"><a class="page" @click="fetchUsers(page.url)" data-i="1" data-page="4">{{ page.label }}</a></li>
-        
+                                <li v-for="page in pagination.links" :key="page.label" class="active cursor-pointer"><a class="page" @click="fetchUsers(page.url)" data-i="1" data-page="4">{{ page.label }}</a></li>
                             </ul>
                         </div>
                     </div>
