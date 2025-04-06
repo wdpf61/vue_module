@@ -5,6 +5,7 @@ import CreateRole from '@/pages/roles/CreateRole.vue';
 import Roles from '@/pages/roles/Roles.vue';
 import UpdateRole from '@/pages/roles/UpdateRole.vue';
 import Users from '@/pages/users/Users.vue';
+import Users2 from '@/pages/users/Users2.vue';
 
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -15,9 +16,13 @@ const routes = [
   { path:'/contact', component: Contact },
 
   { path:'/roles', component: Roles },
-  { path:'/createRole', component: CreateRole},
+  { path:'/roles/create', component: CreateRole},
   { path:'/roles/edit/:id', component: UpdateRole},
-  { path:'/users', component: Users },
+
+
+  { path:'/users', component: Users2 },
+
+  
   { path: '/:pathMatch(.*)*', component: NotFound },
 ]
 

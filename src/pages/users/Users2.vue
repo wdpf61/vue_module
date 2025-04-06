@@ -1,97 +1,93 @@
-
 <script setup>
 import api from '@/Api';
 import axios from 'axios';
-import { onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { debounce } from 'lodash';
 
 
 
-const users= ref([]);
-const roles= ref([]);
+const users = ref([]);
+const roles = ref([]);
 const search = ref('');
-const pagination = ref({});
-const imgUrl=import.meta.env.VITE_IMG_BASE_URL;
 
-const fetchUsers = (url ='/users') => {
+const imgUrl = import.meta.env.VITE_IMG_BASE_URL;
+
+// fetchUsers
+const fetchUsers = (url = "/users") => {
     if (typeof url !== 'string') {
-    console.log(url);
-    url = '/users'; // fallback to default
+        console.log(url);
+        url = '/users'; // fallback to default
     }
-     api.get(url, { params: { search: search.value } })
-     .then((response) => {
-        console.log(response.data);
-        users.value = response.data.data;
-         pagination.value = response.data; 
-     }).catch((err) => {
-        console.log(err);
-     });
-     
-};
+    api.get(url, { params: { search: search.value } })
+        .then((result) => {
+            console.log(result.data);
+            users.value = result.data
+        }).catch((err) => {
+            console.log(err);
+        });
+}
+// fetchRoles
 const fetchRoles = () => {
-     api.get("/roles")
-     .then((response) => {
-        console.log(response.data);
-         roles.value = response.data.roles;
-     }).catch((err) => {
-        console.log(err);
-     });
-     
+
+    api.get("/roles")
+        .then((result) => {
+            roles.value = result.data.roles
+        }).catch((err) => {
+            console.log(err);
+        });
+}
+
+
+
+// const debouncedFetchUsers = debounce(fetchUsers, 300);
+const formatPageLabel = (label) => {
+    if (label === '&laquo; Previous') return 'Previous';
+    if (label === 'Next &raquo;') return 'Next';
+    return label;
 };
 
-// onMounted(fetchUsers())
-onMounted( () => {
+onMounted(() => {
     fetchUsers()
     fetchRoles()
-} )
+});
 
- const debouncedFetchUsers = debounce(fetchUsers, 300);
 
 // create users
- 
-const userData= reactive({
-    name:"",
-    email:"",
-    photo:"",
-    role_id:"",
-    mobile:""
+const userData = reactive({
+    name: "",
+    email: "",
+    photo: "",
+    role_id: "",
+    mobile: ""
 })
 
-const onFileChange= (event) => {
-      userData.photo = event.target.files[0];
+const onFileChange = (e) => {
+    userData.photo = e.target.files[0];
 }
 
-const createUser= ()=>{
+
+
+
+const createUser = () => {
     const formData = new FormData();
-    formData.append('name',userData.name );
-    formData.append('email',userData.email );
-    formData.append('photo',userData.photo );
-    formData.append('mobile',userData.mobile );
-    formData.append('role_id',userData.role_id );
+    formData.append('name', userData.name);
+    formData.append('email', userData.email);
+    formData.append('role_id', userData.role_id);
+    formData.append('photo', userData.photo);
+    formData.append('mobile', userData.mobile);
 
+       api.post('/users', formData)
+       .then((result) => {
+         console.log(result.data);
 
-
-    api.post('/users', formData
-    ,{
-    headers: {
-    'Content-Type': 'multipart/form-data',
-    },
-    })
-    .then((result) => {
-     console.log(result);
-        
-    }).catch((err) => {
-        console.log(err);
-        
-    });
+       }).catch((err) => {
+        console.log(err.data);
+       });
 }
+
 
 // Edit User
 
-const editUser = (id)=>{
-  console.log(id);
-  
-}
 
 
 </script>
@@ -141,37 +137,40 @@ const editUser = (id)=>{
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                              
+
                                                 <div class="employee mb-3">
                                                     <input type="hidden" id="id-field">
                                                     <label class="form-label">User :</label>
-                                                    <input v-model="userData.name" class="form-control" type="text" id="employee-field"
-                                                        placeholder="user" required="">
+                                                    <input v-model="userData.name" class="form-control" type="text"
+                                                        id="employee-field" placeholder="user" required="">
                                                 </div>
 
                                                 <div class="email mb-3">
                                                     <label class="form-label">Email :</label>
-                                                    <input v-model="userData.email" class="form-control" type="email" id="email-field"
-                                                        placeholder="email" required="">
+                                                    <input v-model="userData.email" class="form-control" type="email"
+                                                        id="email-field" placeholder="email" required="">
                                                 </div>
 
                                                 <div class="contact mb-3">
-                                                    <label class="form-label">contact :</label>
-                                                    <input v-model="userData.mobile" class="form-control" type="text" id="contact-field"
-                                                        placeholder="contact" required="">
+                                                    <label class="form-label">Mobile :</label>
+                                                    <input v-model="userData.mobile" class="form-control" type="text"
+                                                        id="contact-field" placeholder="contact" required="">
                                                 </div>
 
                                                 <div class="date mb-3">
                                                     <label class="form-label">Photo :</label>
-                                                    <input @change="onFileChange" class="form-control" type="file" id="date-field" required="" name="photo">
+                                                    <input @change="onFileChange" class="form-control" type="file"
+                                                        id="date-field" required="" name="photo">
                                                 </div>
 
                                                 <div class="status mb-3">
                                                     <label class="form-label">Role</label>
-                                                    <select v-model="userData.role_id" class="form-select" id="status-field" aria-label="Default select example">
+                                                    <select v-model="userData.role_id" class="form-select"
+                                                        id="status-field" aria-label="Default select example">
                                                         <option selected disabled value="">Select Role</option>
-                                                        <option v-for="role in roles" :key="role.id" :value="`${role.id}`">{{ role.name }}</option>
-                                    
+                                                        <option v-for="role in roles" :key="role.id"
+                                                            :value="`${role.id}`">{{ role.name }}</option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -189,7 +188,8 @@ const editUser = (id)=>{
 
                             <form class="app-form app-icon-form " action="#">
                                 <div class="position-relative ">
-                                    <input v-model="search"  name="search" @input="debouncedFetchUsers" placeholder="Search..." class="form-control"  aria-label="Search">
+                                    <input v-model="search" @input="fetchUsers" placeholder="Search..."
+                                        class="form-control" aria-label="Search">
                                     <i class="ti ti-search text-dark"></i>
                                 </div>
                             </form>
@@ -206,40 +206,42 @@ const editUser = (id)=>{
                                         <th class="sort" data-sort="employee" scope="col">Employee</th>
                                         <th class="sort" data-sort="email" scope="col">Email</th>
                                         <th class="sort" data-sort="contact" scope="col">contact</th>
-                                        <th class="sort" data-sort="date" scope="col">Joining Date</th>
-                                        <th class="sort" data-sort="status" scope="col">Status</th>
+                                        <th class="sort" data-sort="contact" scope="col">Role Id</th>
+                                        <th class="sort" data-sort="date" scope="col">Photo</th>
+
                                         <th class="sort" data-sort="action" scope="col">Edit</th>
                                         <th class="sort" data-sort="action" scope="col">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list" id="t-data">
-                                    <tr v-for="user in users">
+                                    <tr v-for="user in users.data">
                                         <th scope="row"><input class="form-check-input mt-0 ms-2" type="checkbox"
                                                 name="item"></th>
                                         <td class="id d-none">{{ user.id }}</td>
                                         <td class="employee">{{ user.name }}</td>
                                         <td class="email">{{ user.email }}</td>
                                         <td class="contact">{{ user.mobile }}</td>
-                                    <td class="date"><img :src="`${imgUrl}/${user.photo}`" alt="" srcset=""></td>
-                                        <td class="status">
-                                            <span class="badge bg-danger-subtle  text-danger text-uppercase">{{ user.inactive === 0 ? "active" : "inactive" }}</span>
-                                        </td>
+                                        <td class="role">{{ user.role_id }}</td>
+                                        <td class="date"><img :src="`${imgUrl}/${user.photo}`" alt="" srcset=""></td>
+
                                         <td class="edit"><button class="btn edit-item-btn btn-sm btn-success"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal" @click="editUser(user.id)">Edit</button>
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                @click="editUser(user.id)">Edit</button>
                                         </td>
-                                        <td class="remove"><button
+                                        <td class="remove"><button @click="deleteUser(user.id)"
                                                 class="btn remove-item-btn btn-sm btn-danger">Remove</button>
                                         </td>
                                     </tr>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
                         <div class="list-pagination">
-                            <!-- <button @click="fetchUsers(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">Prev</button>
-                            <button @click="fetchUsers(pagination.next_page_url)" :disabled="!pagination.next_page_url">Next</button> -->
                             <ul class="pagination">
-                                <li v-for="page in pagination.links" :key="page.label" class="active cursor-pointer"><a class="page" @click="fetchUsers(page.url)" data-i="1" data-page="4">{{ page.label }}</a></li>
+                                <li v-for="page in users.links" :key="page.label"
+                                    :class="page.active ? 'active cursor-pointer' : 'cursor-pointer'"><a class="page"
+                                        @click="fetchUsers(page.url)" data-i="1" data-page="4">{{
+                                        formatPageLabel(page.label) }}</a></li>
                             </ul>
                         </div>
                     </div>

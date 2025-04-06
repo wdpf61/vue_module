@@ -63,9 +63,11 @@ const deleterole= (id)=>{
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h3><RouterLink to="/createRole">Add Roles</RouterLink></h3>
+                    <h3><RouterLink to="/roles/create">Add Roles</RouterLink></h3>
                 </div>
+              
                 <div class="card-body">
+      
                     <div>
                         <table class="table table-striped">
                             <thead>
@@ -81,7 +83,7 @@ const deleterole= (id)=>{
                                     <th>{{ role.name }}</th>
                                     <th>
                                       <RouterLink :to="`/roles/edit/${role.id}`" class="btn btn-primary">Edit</RouterLink>
-                                         <a class="btn btn-danger" @click="deleterole(role.id )">Delete</a>  
+                                      <a class="btn btn-danger" @click="deleterole(role.id )">Delete</a>  
                                     </th>
                                 </tr>
                             </tbody>
@@ -96,4 +98,4 @@ const deleterole= (id)=>{
 
 
 
-<style></style>
+<style scoped></style>

@@ -8,9 +8,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Baisc Form Controls</h5>
+                    <h5>Create Role</h5>
                 </div>
-                {{ formdata }}
+                <!-- {{ formdata }} -->
                 <div class="card-body">
                     <form   @submit.prevent="formSubmit">
                     <div class="app-form">
