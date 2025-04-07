@@ -1,12 +1,16 @@
 <script setup>
 import api from '@/Api';
+import { useRoleStore } from '@/store/RoleStore';
 import axios from 'axios';
 import { onMounted, reactive, ref } from 'vue';
 
 const roles = ref([])
 
+const roleStore= useRoleStore()
+
 onMounted(() => {
-    fetchRoles()
+    // fetchRoles()
+    roleStore.fetchRoles()
 })
 
 const fetchRoles= ()=>{
@@ -67,7 +71,8 @@ const deleterole= (id)=>{
                 </div>
               
                 <div class="card-body">
-      
+                  <div v-if="roleStore.loading">Loading...</div>
+                  <div v-if="roleStore.error" style="color:red">{{ roleStore.error }}</div>
                     <div>
                         <table class="table table-striped">
                             <thead>
@@ -78,7 +83,7 @@ const deleterole= (id)=>{
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="role in roles">
+                                <tr v-for="role in roleStore.roles">
                                     <th>{{ role.id }}</th>
                                     <th>{{ role.name }}</th>
                                     <th>

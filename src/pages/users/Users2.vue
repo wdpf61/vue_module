@@ -9,6 +9,7 @@ import { debounce } from 'lodash';
 const users = ref([]);
 const roles = ref([]);
 const search = ref('');
+const modalForm= ref(null)
 
 const imgUrl = import.meta.env.VITE_IMG_BASE_URL;
 
@@ -49,6 +50,8 @@ const formatPageLabel = (label) => {
 onMounted(() => {
     fetchUsers()
     fetchRoles()
+    const modalEl = document.getElementById('exampleModal');
+    modalForm.value = new bootstrap.Modal(modalEl);
 });
 
 
@@ -75,10 +78,11 @@ const createUser = () => {
     formData.append('role_id', userData.role_id);
     formData.append('photo', userData.photo);
     formData.append('mobile', userData.mobile);
-
+      
        api.post('/users', formData)
        .then((result) => {
          console.log(result.data);
+         modalForm.value.hide()
 
        }).catch((err) => {
         console.log(err.data);
@@ -124,7 +128,7 @@ const createUser = () => {
                         <div class="list-table-header d-flex justify-content-sm-between mb-3">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">Add</button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            <div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <form @submit.prevent="createUser" id="add_employee_form" enctype="multipart/form-data">
                                     <div class="modal-dialog">
