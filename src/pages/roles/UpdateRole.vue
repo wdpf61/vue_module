@@ -5,14 +5,14 @@ import { onMounted, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 
-const { id } = useRoute().params
+const { roleId } = useRoute().params
 const router= useRouter()
 
 onMounted(() => {
     fetchRole()
 })
 const fetchRole = () => {
-    api.get(`/roles/${id}`)
+    api.get(`/roles/${roleId}`)
         .then((result) => {
             console.log(result.data);
             formData.id=  result.data.roles.id

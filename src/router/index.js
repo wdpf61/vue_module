@@ -7,8 +7,11 @@ import NotFound from '@/pages/NotFound.vue';
 import CreateRole from '@/pages/roles/CreateRole.vue';
 import Roles from '@/pages/roles/Roles.vue';
 import UpdateRole from '@/pages/roles/UpdateRole.vue';
+import CreateUser from '@/pages/users/CreateUser.vue';
+import UpdateUser from '@/pages/users/UpdateUser.vue';
 import Users from '@/pages/users/Users.vue';
 import Users2 from '@/pages/users/Users2.vue';
+import Users3 from '@/pages/users/Users3.vue';
 import { useAuthStore } from '@/store/AuthStore';
 
 import { createRouter, createWebHistory } from 'vue-router'
@@ -17,7 +20,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
 
-  {path: '/',name: 'Login', component: Signin,},
+  {path: '/', name: 'Login', component: Signin,},
   {
     path: '/',
     component: MainLayout,
@@ -26,15 +29,12 @@ const routes = [
       { path: 'contact', component: Contact },
       { path: 'roles', component: Roles },
       { path: 'roles/create', component: CreateRole },
-      { path: 'roles/edit/:id', component: UpdateRole },
-      { path: 'users', component: Users2 },
+      { path: 'roles/edit/:roleId', component: UpdateRole },
+      { path: 'users', component: Users3 },
+      { path: 'users/create', component: CreateUser },
+      { path: 'users/edit/:id', component: UpdateUser },
     ],
   },
-  
-
- 
-
-  
   { path: '/:pathMatch(.*)*', component: NotFound },
 ]
 

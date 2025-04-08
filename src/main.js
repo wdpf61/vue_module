@@ -7,8 +7,8 @@ import { createPinia } from 'pinia';
 import { useAuthStore } from './store/AuthStore';
 
 
-createApp(App).use(createPinia()).use(router).mount('#app')
+createApp(App).use(router).mount('#app')
 
 
-const auth = useAuthStore;
-auth.initAuth(); // Set token from localStorage on load
+// const auth = useAuthStore;
+// auth.initAuth(); // Set token from localStorage on load
