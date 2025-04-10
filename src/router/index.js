@@ -14,6 +14,7 @@ import UpdateUser from '@/pages/users/UpdateUser.vue';
 import Users from '@/pages/users/Users.vue';
 import Users2 from '@/pages/users/Users2.vue';
 import Users3 from '@/pages/users/Users3.vue';
+import Users_pinia from '@/pages/users/Users_pinia.vue';
 import { useAuthStore } from '@/store/AuthStore';
 
 import { createRouter, createWebHistory } from 'vue-router'
@@ -33,6 +34,7 @@ const routes = [
       { path: 'roles/create', component: CreateRole },
       { path: 'roles/edit/:roleId', component: UpdateRole },
       { path: 'users', component: Users3 },
+      { path: 'users/pinia', component: Users_pinia },
       { path: 'users/create', component: CreateUser },
       { path: 'users/edit/:id', component: UpdateUser },
       { path: 'props', component: GrandParent },
