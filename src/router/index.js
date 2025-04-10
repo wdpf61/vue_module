@@ -1,4 +1,6 @@
+import GrandParent from '@/components/props/GrandParent.vue';
 import MainLayout from '@/layout/MainLayout.vue';
+import Modal from '@/layout/Modal.vue';
 import Contact from '@/pages/Contact.vue';
 import Dashboard from '@/pages/Dashboard.vue';
 import Login from '@/pages/Login.vue';
@@ -33,6 +35,8 @@ const routes = [
       { path: 'users', component: Users3 },
       { path: 'users/create', component: CreateUser },
       { path: 'users/edit/:id', component: UpdateUser },
+      { path: 'props', component: GrandParent },
+      { path: 'modal', component: Modal },
     ],
   },
   { path: '/:pathMatch(.*)*', component: NotFound },
