@@ -13,7 +13,7 @@
   <div class="app-nav" id="app-simple-bar">
     <ul class="main-nav p-0 mt-2">
       <li class="menu-title">
-        <span>Dashboard</span>
+        <span>{{ props.dashboardName }}</span>
       </li>
       <li>
         <a class="" data-bs-toggle="collapse" href="#dashboard" aria-expanded="false">
@@ -25,7 +25,7 @@
           <li><RouterLink to="/contact">Contact</RouterLink></li>
           <li><RouterLink to="/roles">Roles</RouterLink></li>
           <li><RouterLink to="users">Users</RouterLink></li>
-          <li><a href="education.html">Education</a></li>
+          <li><a href="education.html">{{ student }}</a></li>
         </ul>
       </li>
       <li>
@@ -398,7 +398,13 @@
 <!-- Menu Navigation ends -->
 </template>
 
-<script lang="ts" setup>
+<script  setup>
+import { inject } from 'vue';
+
+
+const props = defineProps(['dashboardName'])
+
+const student= inject("student")
 
 </script>
 

@@ -84,7 +84,7 @@ const deleteUser=(id)=>{
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
                         <td> <img width="100" :src="`${imgUrl}/${user.photo}`" alt="" srcset=""></td>
-                        <td>{{ user.role_id }}</td>
+                        <td>{{ user.role.name }}</td>
                         <td class="btn btn-group">
                             <RouterLink :to="`/users/edit/${user.id}`" class="btn btn-info">
                                 Edit

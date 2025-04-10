@@ -20,7 +20,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
 
-  {path: '/', name: 'Login', component: Signin,},
+  {path: '/', name: 'Login', component: Signin, meta: { public: true },},
   {
     path: '/',
     component: MainLayout,

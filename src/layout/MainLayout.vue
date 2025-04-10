@@ -5,7 +5,7 @@
             <div class="loader_16"></div>
             </div> -->
 
-        <Navbar />
+        <Navbar  dashboardName="Our Dashboard" />
 
         <div class="app-content">
             <div class="">
@@ -33,11 +33,13 @@
 </template>
 
 <script setup>
+import { provide, ref } from 'vue';
 import Footer from './Footer.vue';
 import Header from './Header.vue';
 import Modal from './Modal.vue';
 import Navbar from './Navbar.vue';
 
+provide("student", ref("Kamal"))
 
 </script>
 
