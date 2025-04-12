@@ -8,6 +8,7 @@ import Signin from '@/pages/loginRegister/Signin.vue';
 import NotFound from '@/pages/NotFound.vue';
 import CreateRole from '@/pages/roles/CreateRole.vue';
 import Roles from '@/pages/roles/Roles.vue';
+import Roles_pinia from '@/pages/roles/Roles_pinia.vue';
 import UpdateRole from '@/pages/roles/UpdateRole.vue';
 import CreateUser from '@/pages/users/CreateUser.vue';
 import UpdateUser from '@/pages/users/UpdateUser.vue';
@@ -30,10 +31,11 @@ const routes = [
     children: [
       { path: 'dashboard', component: Dashboard },
       { path: 'contact', component: Contact },
+      { path: 'roles/pinia', component: Roles_pinia },
       { path: 'roles', component: Roles },
       { path: 'roles/create', component: CreateRole },
       { path: 'roles/edit/:roleId', component: UpdateRole },
-      { path: 'users', component: Users3 },
+      { path: 'users', component: Users2 },
       { path: 'users/pinia', component: Users_pinia },
       { path: 'users/create', component: CreateUser },
       { path: 'users/edit/:id', component: UpdateUser },

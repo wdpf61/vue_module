@@ -35,8 +35,6 @@ const fetchUsers = (url = "/users") => {
 }
 
 
-
-
 // const debouncedFetchUsers = debounce(fetchUsers, 300);
 const formatPageLabel = (label) => {
     if (label === '&laquo; Previous') return 'Previous';

@@ -11,7 +11,7 @@
                     <div class="login-form-container">
                       <div class="mb-4">
                         <a class="logo d-inline-block" href="index.html">
-                          <img src="../assets/images/logo/1.png" width="250" alt="#">
+                          <img src="/assets/images/logo/1.png" width="250" alt="#">
                         </a>
                       </div>
                       <div class="form_container">

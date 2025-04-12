@@ -37,6 +37,15 @@ const fetchRoles = () => {
             console.log(err);
         });
 }
+const fetchTodos = () => {
+
+    axios.get("https://jsonplaceholder.typicode.com/todos")
+        .then((result) => {
+           console.log(result);
+        }).catch((err) => {
+            console.log(err);
+        });
+}
 
 
 
@@ -49,6 +58,7 @@ const formatPageLabel = (label) => {
 
 onMounted(() => {
     fetchUsers()
+    fetchTodos()
     fetchRoles()
     const modalEl = document.getElementById('exampleModal');
     modalForm.value = new bootstrap.Modal(modalEl);
@@ -78,6 +88,9 @@ const createUser = () => {
     formData.append('role_id', userData.role_id);
     formData.append('photo', userData.photo);
     formData.append('mobile', userData.mobile);
+
+    // console.log(formData.values);
+    
       
        api.post('/users', formData)
        .then((result) => {

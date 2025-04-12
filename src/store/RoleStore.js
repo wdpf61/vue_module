@@ -1,29 +1,51 @@
-// stores/products.js
-import { defineStore } from 'pinia';
-import axios from 'axios';
-import api from '@/Api';
+import api from '@/Api'
+import {defineStore} from 'pinia'
+import { useUserStore } from './UserStore'
 
-export const useRoleStore = defineStore('Roles', {
-  state: () => ({
-    roles: [],
-    loading: false,
-    error: null,
-  }),
-  actions: {
-    async fetchRoles() {
-      this.loading = true;
-      this.error = null;
-      try {
-        const res = await api.get('/roles');
-        console.log(res.data);
-        
-        this.roles = res.data.roles;
-      } catch (err) {
-        this.error = 'Failed to load Roles';
-        console.error(err);
-      } finally {
-        this.loading = false;
-      }
-    },
+const userStore= useUserStore()
+export const useRoleStore= defineStore("roles",
+{
+  state: ()=>{
+    return{
+      roles:[],
+      loading:false,
+      error:null
+
+    }
   },
-});
+  getters: ()=>{
+
+  },
+  actions: {
+
+    fetchRoles(){
+      this.loading=true;
+     api.get("/role")
+     .then((result) => {
+      console.log(result.data);
+      this.loading=false;
+      this.roles= result.data.roles
+     }).catch((err) => {
+      console.log(err);
+      this.loading=false;
+      this.error=err
+     })
+    },
+
+
+
+    fetchRole(id){
+      
+    },
+
+    updateRole(id){
+
+    },
+
+    deleteRole(id){
+
+    }
+  }
+},
+)
+
