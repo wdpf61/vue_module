@@ -825,7 +825,7 @@
                       <li class="app-divider-v dotted py-1"></li>
 
                       <li>
-                        <a class="mb-0 text-danger" href="./sign_in.html" target="_blank">
+                        <a class="mb-0 text-danger" @click="logout" target="_blank">
                           <i class="ph-duotone  ph-sign-out pe-1 f-s-20"></i> Log Out
                         </a>
                       </li>
@@ -841,8 +841,25 @@
     <!-- Header Section ends -->
 </template>
 
-<script lang="ts" setup>
+<script setup>
+import { useAuthStore } from '@/store/AuthStore';
+import { useRouter } from 'vue-router';
 
+
+const auth= useAuthStore();
+const router=  useRouter()
+
+ const logout=()=>{
+  try {
+    auth.logout()
+    router.push("/login");
+  } catch (error) {
+    console.log(error);
+    
+  }
+   
+
+ }
 </script>
 
 <style>

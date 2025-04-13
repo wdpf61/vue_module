@@ -15,7 +15,6 @@ export const useAuthStore = defineStore('auth', {
         // console.log(credentials);
         // console.log(res);
          console.log("token",res.data.authorisation.token);
-        
         this.token = res.data.authorisation.token;
         this.user = res.data.user;
 
@@ -29,11 +28,18 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     logout() {
-      this.token = null;
-      this.user = null;
-      localStorage.removeItem('token');
-      delete axios.defaults.headers.common['Authorization'];
+      api.post('/logout')
+      .then((result) => {
+        console.log(result);
+        this.token = null;
+        this.user = null;
+        localStorage.removeItem('token');
+        delete api.defaults.headers.common['Authorization'];
+      }).catch((err) => {
+        console.log(err);
+      }); 
     },
+
     initAuth() {
       if (this.token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
