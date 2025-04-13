@@ -1,6 +1,8 @@
 import GrandParent from '@/components/props/GrandParent.vue';
 import MainLayout from '@/layout/MainLayout.vue';
 import Modal from '@/layout/Modal.vue';
+import CreatePurchase from '@/pages/cart/CreatePurchase.vue';
+
 import Contact from '@/pages/Contact.vue';
 import Dashboard from '@/pages/Dashboard.vue';
 import Login from '@/pages/Login.vue';
@@ -24,7 +26,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
 
-  {path: '/', name: 'Login', component: Signin, meta: { public: true },},
+  {path: '/login', name: 'Login', component: Signin, meta: { public: true },},
   {
     path: '/',
     component: MainLayout,
@@ -41,6 +43,7 @@ const routes = [
       { path: 'users/edit/:id', component: UpdateUser },
       { path: 'props', component: GrandParent },
       { path: 'modal', component: Modal },
+      { path: 'cart', component: CreatePurchase },
     ],
   },
   { path: '/:pathMatch(.*)*', component: NotFound },
@@ -53,13 +56,13 @@ const router = createRouter({
 
 
 // // Navigation guard
-// router.beforeEach((to, from, next) => {
-//   const auth = useAuthStore();
-//   if (!to.meta.public && !auth.token) {
-//     return next('/login');
-//   }
-//   next();
-// });
+router.beforeEach((to, from, next) => {
+  const auth = useAuthStore();
+  if (!to.meta.public && !auth.token) {
+    return next('/login');
+  }
+  next();
+});
 
 
 

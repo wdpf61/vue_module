@@ -2,7 +2,7 @@ import api from '@/Api'
 import {defineStore} from 'pinia'
 import { useUserStore } from './UserStore'
 
-const userStore= useUserStore()
+
 export const useRoleStore= defineStore("roles",
 {
   state: ()=>{

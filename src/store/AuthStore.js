@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth', {
         const res = await api.post('/login', credentials);
         // console.log(credentials);
         // console.log(res);
-        // console.log("token",res.data.authorisation.token);
+         console.log("token",res.data.authorisation.token);
         
         this.token = res.data.authorisation.token;
         this.user = res.data.user;

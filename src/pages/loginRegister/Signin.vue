@@ -15,27 +15,27 @@
                         </a>
                       </div>
                       <div class="form_container">
-                        
-                        <form class="app-form">
+                        {{ loginObj }}
+                        <form @submit.prevent="handleLogin" class="app-form">
                           <div class="mb-3 text-center">
                             <h3>Login to your Account</h3>
                             <p class="f-s-12 text-secondary">Get started with our app, just create an account and enjoy the experience.</p>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Email address</label>
-                            <input type="email" class="form-control">
+                            <input v-model="loginObj.email" type="email" class="form-control">
                             <div class="form-text text">We'll never share your email with anyone else.</div>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input type="password" class="form-control">
+                            <input v-model="loginObj.password" type="password" class="form-control">
                           </div>
                           <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="formCheck1">
                             <label class="form-check-label" for="formCheck1">remember me</label>
                           </div>
                           <div>
-                            <a href="./index.html" role="button" class="btn btn-primary w-100">Submit</a>
+                            <button type="submit" role="button" class="btn btn-primary w-100">Submit</button>
                           </div>
                           <div class="app-divider-v justify-content-center">
                             <p>OR</p>
@@ -64,6 +64,45 @@
 </template>
 
 <script  setup>
+import api from '@/Api';
+import { useAuthStore } from '@/store/AuthStore';
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+
+
+  const auth= useAuthStore()
+
+  const router= useRouter()
+
+  const loginObj= reactive({
+     email:"",
+     password: ""
+  })
+
+
+  const handleLogin=()=>{
+      try {
+        auth.login(loginObj)
+        router.push("/dashboard");
+      } catch (error) {
+        console.log(error);
+      }
+  }
+
+
+
+  // const handleLogin=()=>{
+  //    api.post("login",loginObj )
+  //    .then((result) => {
+  //       console.log(result.data);
+        
+  //    }).catch((err) => {
+  //     console.log(result.data);
+  //    });
+  // }
+
+
+
 
 </script>
 
