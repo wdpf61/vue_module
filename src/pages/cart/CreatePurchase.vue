@@ -1,4 +1,8 @@
 <template>
+   <div class="row">
+    <div class="col">
+
+ 
     <div class="container my-5">
       <div class="card shadow">
         <div class="card-header bg-primary text-white text-center">
@@ -114,6 +118,8 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
   </template>
   
   <script setup>

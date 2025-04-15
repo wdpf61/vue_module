@@ -25,7 +25,7 @@
           <li><RouterLink to="/contact">Contact</RouterLink></li>
           <li><RouterLink to="/roles">Roles</RouterLink></li>
           <li><RouterLink to="users">Users</RouterLink></li>
-          <li><a href="education.html">{{ student }}</a></li>
+          <li><RouterLink to="/cart">Cart</RouterLink></li>
         </ul>
       </li>
       <li>
@@ -400,6 +400,7 @@
 
 <script  setup>
 import { inject } from 'vue';
+import { RouterLink } from 'vue-router';
 
 
 const props = defineProps(['dashboardName'])

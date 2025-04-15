@@ -79,31 +79,14 @@ import { useRouter } from 'vue-router';
      password: ""
   })
 
-
-  const handleLogin=()=>{
+  const handleLogin= async()=>{
       try {
-        auth.login(loginObj)
+        await auth.login(loginObj)
         router.push("/dashboard");
       } catch (error) {
         console.log(error);
       }
   }
-
-
-
-  // const handleLogin=()=>{
-  //    api.post("login",loginObj )
-  //    .then((result) => {
-  //       console.log(result.data);
-        
-  //    }).catch((err) => {
-  //     console.log(result.data);
-  //    });
-  // }
-
-
-
-
 </script>
 
 <style>
