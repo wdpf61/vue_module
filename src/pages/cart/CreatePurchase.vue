@@ -125,7 +125,7 @@
   <script setup>
    import { ref, reactive, onMounted, watch } from 'vue'
    import axios from 'axios'
-   import useCart from './Cart'
+   import {useCart} from './Cart'
  
 
 

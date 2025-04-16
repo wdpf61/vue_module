@@ -1,54 +1,43 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue';
 
-export default function useCart(cartName) {
-  const cart = ref(JSON.parse(localStorage.getItem(cartName)) || [])
-
-  const saveCart = () => {
-    localStorage.setItem(cartName, JSON.stringify(cart.value))
-  }
-
+export function useCart(cartName) {
   const getCart = () => {
-    return cart.value
-  }
+    const cart = JSON.parse(localStorage.getItem(cartName)) || [];
+    return cart;
+  };
 
   const save = (item) => {
-    const exists = cart.value.find((i) => i.item_id === item.item_id)
+    let cart = getCart();
+    const exists = cart.find((i) => i.item_id === item.item_id);
     if (!exists) {
-      cart.value.push(item)
+      cart.push(item);
     } else {
-      cart.value = cart.value.map((i) =>
+      cart = cart.map((i) =>
         i.item_id === item.item_id
-          ? { 
+          ? {
               ...i,
               qty: i.qty + item.qty,
               subtotal: (i.qty + item.qty) * i.price - i.discount
             }
           : i
-      )
+      );
     }
-    saveCart()
-  }
+    localStorage.setItem(cartName, JSON.stringify(cart));
+  };
 
   const deleteItem = (id) => {
-    cart.value = cart.value.filter((item) => item.item_id !== id)
-    saveCart()
-  }
+    const cart = getCart().filter((item) => item.item_id !== id);
+    localStorage.setItem(cartName, JSON.stringify(cart));
+  };
 
   const clearCart = () => {
-    cart.value = []
-    saveCart()
-  }
-
-  const total = computed(() =>
-    cart.value.reduce((sum, item) => sum + item.subtotal, 0)
-  )
+    localStorage.setItem(cartName, JSON.stringify([]));
+  };
 
   return {
-    cart,
     getCart,
     save,
     deleteItem,
-    clearCart,
-    total
-  }
+    clearCart
+  };
 }

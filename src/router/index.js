@@ -2,6 +2,7 @@ import GrandParent from '@/components/props/GrandParent.vue';
 import MainLayout from '@/layout/MainLayout.vue';
 import Modal from '@/layout/Modal.vue';
 import CreatePurchase from '@/pages/cart/CreatePurchase.vue';
+import CreateSales from '@/pages/cart/CreateSales.vue';
 
 import Contact from '@/pages/Contact.vue';
 import Dashboard from '@/pages/Dashboard.vue';
@@ -44,6 +45,7 @@ const routes = [
       { path: 'props', component: GrandParent },
       { path: 'modal', component: Modal },
       { path: 'cart', component: CreatePurchase },
+      { path: 'sales', component: CreateSales },
     ],
   },
   { path: '/:pathMatch(.*)*', component: NotFound },
