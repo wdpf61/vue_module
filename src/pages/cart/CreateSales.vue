@@ -3,7 +3,8 @@
         <div class="col-md-12">
   <div class="card">
     <div class="card-body">
-   {{ cartItems }}
+   <!-- {{ dataObj }} -->
+   <!-- {{ cartItems }} -->
      
 <div class="container invoice">
   <div class="invoice-header d-flex justify-content-between align-items-center">
@@ -86,17 +87,18 @@
       
     </tbody>
     <tfoot>
-      <tr>
+      <!-- <tr>
         <th colspan="5" class="text-end">Subtotal</th>
         <th>$390.00</th>
-      </tr>
+      </tr> -->
       <tr>
-        <th colspan="5" class="text-end">Tax (5%)</th>
-        <th>$19.50</th>
+        <th colspan="5" class="text-end">Discount</th>
+        <th>${{ dataObj.totalDiscount }}</th>
       </tr>
+      
       <tr>
         <th colspan="5" class="text-end">Total</th>
-        <th>$409.50</th>
+        <th>${{ dataObj.grandTotal }}</th>
       </tr>
     </tfoot>
   </table>
@@ -132,8 +134,21 @@ const dataObj= reactive({
   selectedWareHouse:{},
   selectedProduct:{},
   qty:1,
-  discount:0
+  discount:0,
+  totalDiscount:0,
+  grandTotal:0
 })
+
+
+  const grandTotalCalculation=()=>{
+    dataObj.totalDiscount= cart.getCart().reduce((acc , ele)=> acc+ ele.discount,0);
+    dataObj.grandTotal= cart.getCart().reduce((acc , ele)=> acc+ ele.subtotal,0);
+
+    console.log( dataObj.totalDiscount);
+    console.log(dataObj.grandTotal);
+    
+    
+  }
 
 // add to cart 
 
@@ -151,6 +166,10 @@ const addToCart= ()=>{
   }
   cart.save(data)
   cartItems.value = cart.getCart();
+  grandTotalCalculation()
+    
+
+
   console.log(data);
   dataObj.selectedProduct={}
   dataObj.qty=1
@@ -160,14 +179,16 @@ const addToCart= ()=>{
 // item remove 
 const itemRemove= (id)=>{
   console.log(id);
-  
+
   cart.deleteItem(id);
   cartItems.value = cart.getCart();
+  grandTotalCalculation()
 }
 
 const clearCart=()=>{
   cart.clearCart();
   cartItems.value = cart.getCart();
+  grandTotalCalculation()
 }
 
 // order process 
@@ -177,6 +198,8 @@ const processOrder=()=>{
     products:cart.getCart(),
     customer:dataObj.selectedCustomer,
     warehouse:dataObj.selectedWareHouse,
+    discount:dataObj.totalDiscount,
+    grandtotal:dataObj.grandTotal,
   }
 
   api.post("/sales/processOrder", processData)
@@ -206,6 +229,7 @@ const saleData=()=>{
 
 onMounted(()=>{
    saleData()
+   grandTotalCalculation()
 })
 
 
