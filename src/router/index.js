@@ -9,6 +9,7 @@ import Dashboard from '@/pages/Dashboard.vue';
 import Login from '@/pages/Login.vue';
 import Signin from '@/pages/loginRegister/Signin.vue';
 import NotFound from '@/pages/NotFound.vue';
+import Roleql from '@/pages/rolegql/Role.vue';
 import CreateRole from '@/pages/roles/CreateRole.vue';
 import Roles from '@/pages/roles/Roles.vue';
 import Roles_pinia from '@/pages/roles/Roles_pinia.vue';
@@ -46,6 +47,7 @@ const routes = [
       { path: 'modal', component: Modal },
       { path: 'cart', component: CreatePurchase },
       { path: 'sales', component: CreateSales },
+      { path: 'rolesgql', component: Roleql },
     ],
   },
   { path: '/:pathMatch(.*)*', component: NotFound },

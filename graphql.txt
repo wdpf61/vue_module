@@ -1,0 +1,5 @@
+npm install @apollo/client graphql  @vue/apollo-composable
+
+setup apollo client 
+
+init in main.js

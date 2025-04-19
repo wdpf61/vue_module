@@ -7,7 +7,17 @@ import router from './router'
 import { useAuthStore } from './store/AuthStore';
 import { createPinia } from 'pinia';
 
-createApp(App).use(createPinia()).use(router).mount('#app')
+import { ApolloClients } from '@vue/apollo-composable'
+import apolloClient from './apollo/ApolloClient';
+
+
+const app = createApp(App)
+
+app.provide(ApolloClients, {
+  default: apolloClient,
+})
+
+app.use(createPinia()).use(router).mount('#app')
 
 
 const auth = useAuthStore();
